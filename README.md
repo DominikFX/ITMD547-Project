@@ -1,4 +1,4 @@
-# ITMD547-Project - Hawk Warehouse
+# Hawk Warehouse - ITMD547-Project
 Hawk Warehouse is a web application built for the Illinois Tech to streamline the resale and rental of campus furniture and equipment. It provides a modern, responsive interface for browsing available items, managing inventory, and tracking orders. The project is hosted on Azure Static Web Apps with continuous deployment from GitHub.
 
 ## Features

@@ -25,15 +25,15 @@ export default function Catalog() {
         subtitle="Used furniture at student-friendly prices. Pickup only."
         image="/images/hero-catalog.jpg"
       />
-      <div className="hw-row" style={{ justifyContent:'space-between', marginBottom: 8 }}>
+      <div className="hw-row" style={{ justifyContent: 'space-between', marginBottom: 8 }}>
         <input
           className="hw-input"
           style={{ minWidth: 280 }}
           placeholder="Search by name, category, or description…"
           value={q}
-          onChange={(e)=>setQ(e.target.value)}
+          onChange={(e) => setQ(e.target.value)}
         />
-        <div style={{ color:'#64748b', fontSize:12 }}>
+        <div style={{ color: '#64748b', fontSize: 12 }}>
           {items.length} results
         </div>
       </div>

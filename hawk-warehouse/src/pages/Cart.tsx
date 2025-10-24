@@ -20,7 +20,7 @@ export default function Cart() {
   }
 
   return (
-    <div className="hw-col" style={{ gap:16 }}>
+    <div className="hw-col" style={{ gap: 16 }}>
       <h2>Cart</h2>
       <table className="hw-table">
         <thead><tr><th>Item</th><th>Qty</th><th>Unit</th><th>Total</th><th></th></tr></thead>
@@ -30,21 +30,21 @@ export default function Cart() {
               <td>{x.name}</td>
               <td>{x.qty}</td>
               <td>${x.price.toFixed(2)}</td>
-              <td>${(x.price*x.qty).toFixed(2)}</td>
-              <td><button className="hw-btn ghost" onClick={()=>dispatch({type:'REMOVE_FROM_CART', productId:x.productId})}>Remove</button></td>
+              <td>${(x.price * x.qty).toFixed(2)}</td>
+              <td><button className="hw-btn ghost" onClick={() => dispatch({ type: 'REMOVE_FROM_CART', productId: x.productId })}>Remove</button></td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="hw-row" style={{ justifyContent:'space-between' }}>
+      <div className="hw-row" style={{ justifyContent: 'space-between' }}>
         <div />
         <div><strong>Subtotal: ${total.toFixed(2)}</strong></div>
       </div>
-      <div className="hw-row" style={{ justifyContent:'flex-end' }}>
-        <button className="hw-btn secondary" onClick={()=>dispatch({type:'CLEAR_CART'})}>Clear</button>
-        <button className="hw-btn" onClick={()=>dispatch({type:'PLACE_CATALOG_ORDER'})}>Place order (Pickup)</button>
+      <div className="hw-row" style={{ justifyContent: 'flex-end' }}>
+        <button className="hw-btn secondary" onClick={() => dispatch({ type: 'CLEAR_CART' })}>Clear</button>
+        <button className="hw-btn" onClick={() => dispatch({ type: 'PLACE_CATALOG_ORDER' })}>Place order (Pickup)</button>
       </div>
-      <p style={{ color:'#9aa0aa', fontSize:12 }}>Pickup only. You’ll receive a confirmation email… in your imagination. This is a demo.</p>
+      <p style={{ color: '#9aa0aa', fontSize: 12 }}>Pickup only. You'll receive a confirmation email... in your imagination. This is a demo.</p>
     </div>
   )
 }

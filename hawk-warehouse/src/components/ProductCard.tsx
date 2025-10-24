@@ -6,12 +6,12 @@ import type { Product } from '../types'
 export default function ProductCard({ p }: { p: Product }) {
   const { dispatch } = useStore()
   const canBuy = p.type === 'catalog'
-  const price = p.type === 'catalog' ? p.priceSale ?? p.priceMsrp : undefined
+  //const price = p.type === 'catalog' ? p.priceSale ?? p.priceMsrp : undefined
   return (
     <div className="hw-card">
       <Link to={`/product/${p.id}`}><img src={p.image} alt={p.name} /></Link>
       <div className="hw-card-body">
-        <div className="hw-row" style={{ justifyContent:'space-between' }}>
+        <div className="hw-row" style={{ justifyContent: 'space-between' }}>
           <strong>{p.name}</strong>
           <span className="hw-tag">{p.category}</span>
         </div>

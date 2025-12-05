@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../../store'
+import { api } from '../../api'
 import type { Product, ProductType } from '../../types'
 
 export default function AddProduct() {
   const { dispatch } = useStore()
   const nav = useNavigate()
   const [type, setType] = useState<ProductType>('catalog')
+  const [uploading, setUploading] = useState(false)
+
   const [form, setForm] = useState({
     id: '',
     name: '',
@@ -15,12 +18,27 @@ export default function AddProduct() {
     priceSale: '',
     rentalRatePerDay: '',
     stock: '0',
-    image: '/images/placeholder-chair.jpg',
+    image: '',
     description: ''
   })
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setUploading(true);
+      try {
+        const result = await api.uploadImage(e.target.files[0]);
+        setForm(prev => ({ ...prev, image: result.url }));
+      } catch (err) {
+        alert("Failed to upload image");
+      } finally {
+        setUploading(false);
+      }
+    }
+  }
+
   const submit = () => {
     if (!form.id || !form.name || !form.category) return
+
     const product: Product = {
       id: form.id,
       type,
@@ -30,11 +48,10 @@ export default function AddProduct() {
       priceSale: type === 'catalog' && form.priceSale ? Number(form.priceSale) : undefined,
       rentalRatePerDay: type === 'rental' && form.rentalRatePerDay ? Number(form.rentalRatePerDay) : undefined,
       stock: Number(form.stock) || 0,
-      image: form.image,
+      image: form.image || 'https://placehold.co/400',
       description: form.description
     }
     dispatch({ type: 'ADD_PRODUCT', product })
-    setForm({ ...form, id: '', name: '', category: '', priceMsrp: '', priceSale: '', rentalRatePerDay: '', stock: '0', description: '' })
     nav('/admin/inventory')
   }
 
@@ -51,7 +68,7 @@ export default function AddProduct() {
           </label>
         </div>
         <div className="hw-grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
-          <input className="hw-input" placeholder="ID (unique)" value={form.id} onChange={e => setForm({ ...form, id: e.target.value })} />
+          <input className="hw-input" placeholder="ID (unique e.g. CHAIR-001)" value={form.id} onChange={e => setForm({ ...form, id: e.target.value })} />
           <input className="hw-input" placeholder="Name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
           <input className="hw-input" placeholder="Category" value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} />
           {type === 'catalog' && <>
@@ -62,12 +79,19 @@ export default function AddProduct() {
             <input className="hw-input" placeholder="Rate per day" value={form.rentalRatePerDay} onChange={e => setForm({ ...form, rentalRatePerDay: e.target.value })} />
           </>}
           <input className="hw-input" placeholder="Stock" value={form.stock} onChange={e => setForm({ ...form, stock: e.target.value })} />
-          <input className="hw-input" placeholder="Image URL" value={form.image} onChange={e => setForm({ ...form, image: e.target.value })} />
+
+          <div className="hw-col">
+            <label style={{ fontSize: 12, fontWeight: 'bold', color: '#666' }}>Product Image</label>
+            <input type="file" className="hw-input" onChange={handleFileChange} accept="image/*" />
+            {uploading && <div style={{ fontSize: 12, color: 'blue' }}>Uploading to Azure...</div>}
+            {form.image && <div style={{ fontSize: 12, color: 'green' }}>Image uploaded!</div>}
+          </div>
+
         </div>
         <textarea className="hw-textarea" placeholder="Description" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} />
         <div className="hw-row" style={{ justifyContent: 'flex-end' }}>
           <button className="hw-btn secondary" onClick={() => nav('/admin/inventory')}>Cancel</button>
-          <button className="hw-btn" onClick={submit}>Add</button>
+          <button className="hw-btn" onClick={submit} disabled={uploading}>Add</button>
         </div>
       </div>
     </div>

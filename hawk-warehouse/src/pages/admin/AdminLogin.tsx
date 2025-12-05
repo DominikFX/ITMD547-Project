@@ -1,20 +1,29 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ADMIN_TOKEN_KEY, EXPECTED_TOKEN } from '../../auth'
+import { useStore } from '../../store'
+import { api } from '../../api'
 
 export default function AdminLogin() {
   const [token, setToken] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const nav = useNavigate()
+  const { dispatch } = useStore()
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (token === EXPECTED_TOKEN) {
-      localStorage.setItem(ADMIN_TOKEN_KEY, token)
+    setLoading(true)
+    setError('')
+
+    const isValid = await api.login(token)
+
+    if (isValid) {
+      dispatch({ type: 'LOGIN_ADMIN' })
       nav('/admin', { replace: true })
     } else {
       setError('Invalid token.')
     }
+    setLoading(false)
   }
 
   return (
@@ -27,14 +36,14 @@ export default function AdminLogin() {
             className="hw-input"
             value={token}
             onChange={(e) => setToken(e.target.value)}
-            placeholder="Enter demo token"
+            placeholder="Enter admin token"
+            type="password"
           />
           {error && <div style={{ color: 'var(--danger)' }}>{error}</div>}
-          <button className="hw-btn" type="submit">Enter</button>
+          <button className="hw-btn" type="submit" disabled={loading}>
+            {loading ? 'Verifying...' : 'Enter'}
+          </button>
         </form>
-        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 8 }}>
-          Demo token is <code>{EXPECTED_TOKEN}</code> (change in <code>src/auth.tsx</code>).
-        </p>
       </div>
     </div>
   )

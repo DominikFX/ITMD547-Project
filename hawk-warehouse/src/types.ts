@@ -35,9 +35,12 @@ export interface StoreState {
   inventory: Product[]
   cart: CartItem[]
   orders: Order[]
+  isAdmin: boolean
 }
 
 export type StoreAction =
+  | { type: 'SET_INVENTORY'; payload: Product[] }
+  | { type: 'SET_ORDERS'; payload: Order[] }
   | { type: 'ADD_TO_CART'; productId: string; qty: number }
   | { type: 'REMOVE_FROM_CART'; productId: string }
   | { type: 'CLEAR_CART' }
@@ -47,3 +50,5 @@ export type StoreAction =
   | { type: 'UPDATE_PRODUCT'; product: Product }
   | { type: 'DELETE_PRODUCT'; productId: string }
   | { type: 'UPDATE_ORDER_STATUS'; orderId: string; status: OrderStatus }
+  | { type: 'LOGIN_ADMIN' }
+  | { type: 'LOGOUT_ADMIN' }

@@ -9,10 +9,11 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "engines": { 
-    "node": ">=20.19.0" 
+  "engines": {
+    "node": ">=20.19.0"
   },
   "dependencies": {
+    "lucide-react": "^0.556.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.4"

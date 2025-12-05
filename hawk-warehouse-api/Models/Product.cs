@@ -10,6 +10,6 @@ public class Product
   public decimal? PriceSale { get; set; }
   public decimal? RentalRatePerDay { get; set; }
   public int Stock { get; set; }
-  public string ImageUrl { get; set; } = string.Empty;
+  public string Image { get; set; } = string.Empty;
   public string? Description { get; set; }
 }

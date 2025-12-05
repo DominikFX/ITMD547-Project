@@ -39,7 +39,7 @@ public static class ProductEndpoints
       existing.PriceSale = product.PriceSale;
       existing.RentalRatePerDay = product.RentalRatePerDay;
       existing.Description = product.Description;
-      existing.ImageUrl = product.ImageUrl;
+      existing.Image = product.Image;
 
       await db.SaveChangesAsync();
       return Results.Ok(existing);

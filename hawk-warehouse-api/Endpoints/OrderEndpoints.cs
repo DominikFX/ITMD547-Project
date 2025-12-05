@@ -23,6 +23,11 @@ public static class OrderEndpoints
     // POST /api/orders
     group.MapPost("/", async (WarehouseContext db, Order order) =>
     {
+      if (string.IsNullOrEmpty(order.Id))
+      {
+        order.Id = Guid.NewGuid().ToString();
+      }
+
       order.CreatedAt = DateTime.UtcNow;
       order.Status = "placed";
 

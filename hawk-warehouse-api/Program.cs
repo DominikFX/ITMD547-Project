@@ -49,5 +49,6 @@ app.UseHttpsRedirection();
 app.MapProductEndpoints();
 app.MapOrderEndpoints();
 app.MapImageEndpoints();
+app.MapAuthEndpoints();
 
 app.Run();

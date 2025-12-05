@@ -287,3 +287,27 @@ a {
   text-align: center;
   margin-top: 18px
 }
+
+.hw-page-center {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.hw-card-confirm {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.hw-confirm-body {
+  align-items: center;
+  gap: 20px;
+  padding: 40px;
+}
+
+.hw-text-muted {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}

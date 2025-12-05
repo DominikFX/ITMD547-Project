@@ -9,6 +9,7 @@ import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import Rental from './pages/Rental'
 import About from './pages/About'
+import OrderConfirmation from './pages/OrderConfirmation'
 
 import AdminDashboard from './pages/admin/AdminDashboard'
 import Inventory from './pages/admin/Inventory'
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: 'cart', element: <Cart /> },
       { path: 'rental', element: <Rental /> },
       { path: 'about', element: <About /> },
+      { path: 'order-confirmation', element: <OrderConfirmation /> },
       { path: 'admin-login', element: <AdminLogin /> },
       {
         path: 'admin',

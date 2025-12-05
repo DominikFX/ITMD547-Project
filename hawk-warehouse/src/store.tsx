@@ -76,7 +76,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       if (!items.length) return;
 
       try {
-        await api.placeOrder({
+        const createdOrder = await api.placeOrder({
           type: 'catalog',
           items,
           total: totalForItems(items, state.inventory)
@@ -88,7 +88,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         dispatch({ type: 'SET_INVENTORY', payload: inv });
         dispatch({ type: 'SET_ORDERS', payload: ords });
 
-        alert("Order placed successfully!");
+        window.location.assign(`/order-confirmation?type=catalog&id=${createdOrder.id}`);
       } catch (err) {
         console.error(err);
         alert("Failed to place order. Please try again.");
@@ -107,7 +107,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         });
         const ords = await api.getOrders();
         dispatch({ type: 'SET_ORDERS', payload: ords });
-        alert("Rental request submitted!");
+
+        window.location.assign('/order-confirmation?type=rental');
       } catch (err) {
         alert("Failed to submit rental request.");
       }

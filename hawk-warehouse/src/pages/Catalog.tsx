@@ -18,6 +18,15 @@ export default function Catalog() {
     )
   }, [state.inventory, q])
 
+  if (!state.isInitialized) {
+    return (
+      <div style={{ padding: 40, textAlign: 'center', color: '#666' }}>
+        <h2>Connecting to Azure Cloud...</h2>
+        <p>Checking rental availability (this may take up to 30s)...</p>
+      </div>
+    )
+  }
+
   return (
     <>
       <Hero

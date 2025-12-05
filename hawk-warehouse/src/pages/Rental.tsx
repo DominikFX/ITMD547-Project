@@ -22,6 +22,15 @@ export default function Rental() {
     endDate: ''
   })
 
+  if (!state.isInitialized) {
+    return (
+      <div style={{ padding: 40, textAlign: 'center', color: '#666' }}>
+        <h2>Connecting to Azure Cloud...</h2>
+        <p>Checking rental availability (this may take up to 30s)...</p>
+      </div>
+    )
+  }
+
   const setQty = (p: Product, qty: number) => {
     qty = Math.max(0, Math.min(qty, p.stock))
     setSelections(prev => {

@@ -6,7 +6,8 @@ const initialState: StoreState = {
   inventory: [],
   cart: [],
   orders: [],
-  isAdmin: false
+  isAdmin: false,
+  isInitialized: false
 }
 
 function totalForItems(items: { productId: string; qty: number }[], inventory: Product[]) {
@@ -23,7 +24,7 @@ function reducer(state: StoreState, action: StoreAction): StoreState {
     case 'LOGIN_ADMIN': return { ...state, isAdmin: true }
     case 'LOGOUT_ADMIN': return { ...state, isAdmin: false }
 
-    case 'SET_INVENTORY': return { ...state, inventory: action.payload }
+    case 'SET_INVENTORY': return { ...state, inventory: action.payload, isInitialized: true }
     case 'SET_ORDERS': return { ...state, orders: action.payload }
 
     case 'ADD_TO_CART': {
@@ -62,7 +63,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         const ords = await api.getOrders();
         dispatch({ type: 'SET_ORDERS', payload: ords });
       } catch (err) {
-        console.error("Failed to load initial data", err);
+        console.error("Wake up failed", err);
       }
     };
     load();

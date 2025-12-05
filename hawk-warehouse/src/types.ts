@@ -36,6 +36,7 @@ export interface StoreState {
   cart: CartItem[]
   orders: Order[]
   isAdmin: boolean
+  isInitialized: boolean
 }
 
 export type StoreAction =
